@@ -1,11 +1,14 @@
 package org.flyontime.android.ui.presenter;
 
+import org.flyontime.android.model.data.DashboardModelInterface;
+import org.flyontime.android.model.data.DateModel;
 import org.flyontime.android.model.data.ItemModel;
 import org.flyontime.android.model.service.SchoolsDataAPI;
 import org.flyontime.android.model.state.HomeViewState;
 import org.flyontime.android.scheduler.SchedulerProvider;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,10 +21,10 @@ import io.reactivex.Observable;
 
 public class HomeInteractor {
 
-    ArrayList<ItemModel> items = new ArrayList<>();
+    ArrayList<DashboardModelInterface> items = new ArrayList<>();
     private SchoolsDataAPI api;
     private SchedulerProvider schedulerProvider;
-    private Observable<List<ItemModel>> stuff = Observable.fromArray(items);
+    private Observable<List<DashboardModelInterface>> stuff = Observable.fromArray(items);
 
     @Inject
     public HomeInteractor(SchoolsDataAPI api, SchedulerProvider schedulerProvider) {
@@ -30,6 +33,8 @@ public class HomeInteractor {
         items.add(new ItemModel("Check-in online", "check more luggage, buy seats and select preferred services", "11:30", false));
         items.add(new ItemModel("Prepare for the trip", "checked luggage: 2 bags (max. 40 kg/bag)special item: 1 bicycle (max. 20 kg)", "12:42", true));
         items.add(new ItemModel("Travel to the airport", "estimated daparture at 11:30travel by car (36 mins)", "13:10", true));
+        items.add(new DateModel(new Date()));
+
     }
 
     Observable<HomeViewState> loadSchools() {

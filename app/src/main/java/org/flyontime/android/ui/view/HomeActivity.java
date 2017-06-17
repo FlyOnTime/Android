@@ -11,8 +11,9 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 
-import org.flyontime.android.model.data.ItemModel;
+import org.flyontime.android.model.data.DashboardModelInterface;
 import org.flyontime.android.model.state.HomeViewState;
+import org.flyontime.android.ui.adapter.DashboardAdapter;
 import org.flyontime.android.ui.adapter.HomeAdapter;
 import org.flyontime.android.ui.contract.HomeViewPresenterContract;
 import org.flyontime.android.ui.presenter.HomePresenter;
@@ -74,7 +75,8 @@ public class HomeActivity extends AppCompatActivity implements HomeViewPresenter
         binding.recyclerView.setLayoutManager(mLayoutManager);
 
         binding.recyclerView.setItemAnimator(new DefaultItemAnimator());
-        binding.recyclerView.setAdapter(new HomeAdapter(this.getLayoutInflater()));
+        //binding.recyclerView.setAdapter(new HomeAdapter(this.getLayoutInflater()));
+        binding.recyclerView.setAdapter(new DashboardAdapter(this.getLayoutInflater()));
     }
 
     void setupSwiperefresh() {
@@ -135,12 +137,12 @@ public class HomeActivity extends AppCompatActivity implements HomeViewPresenter
     }
 
     void clearAdapter() {
-        ((HomeAdapter) binding.recyclerView.getAdapter()).clear();
+        ((DashboardAdapter) binding.recyclerView.getAdapter()).clear();
     }
 
-    void showSchools(List<ItemModel> items) {
-        for (ItemModel item : items) {
-            ((HomeAdapter) binding.recyclerView.getAdapter()).add(item);
+    void showSchools(List<DashboardModelInterface> items) {
+        for (DashboardModelInterface item : items) {
+            ((DashboardAdapter) binding.recyclerView.getAdapter()).add(item);
         }
     }
 }
