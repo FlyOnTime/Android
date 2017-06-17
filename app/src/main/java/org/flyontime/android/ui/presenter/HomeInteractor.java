@@ -30,10 +30,10 @@ public class HomeInteractor {
     public HomeInteractor(SchoolsDataAPI api, SchedulerProvider schedulerProvider) {
         this.api = api;
         this.schedulerProvider = schedulerProvider;
+        items.add(new DateModel(new Date()));
         items.add(new ItemModel("Check-in online", "check more luggage, buy seats and select preferred services", "11:30", false));
         items.add(new ItemModel("Prepare for the trip", "checked luggage: 2 bags (max. 40 kg/bag)special item: 1 bicycle (max. 20 kg)", "12:42", true));
         items.add(new ItemModel("Travel to the airport", "estimated daparture at 11:30travel by car (36 mins)", "13:10", true));
-        items.add(new DateModel(new Date()));
 
     }
 

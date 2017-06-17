@@ -44,6 +44,7 @@ public class DateViewDelegate extends AdapterDelegate<List<DashboardModelInterfa
     @Override
     protected void onBindViewHolder(@NonNull List<DashboardModelInterface> items, int position, @NonNull RecyclerView.ViewHolder holder, @NonNull List<Object> payloads) {
         DateViewHolder viewHolder = (DateViewHolder) holder;
+        viewHolder.binding.setDate((DateModel) items.get(position));
     }
 
     private class DateViewHolder extends RecyclerView.ViewHolder {
