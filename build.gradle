@@ -4,7 +4,7 @@ apply plugin: 'kotlin'
 
 buildscript {
     ext {
-        kotlin_version = '1.1.2-5'
+        kotlinVersion = '1.1.2-5'
     }
     repositories {
         jcenter()
@@ -13,7 +13,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
         classpath 'me.tatarka:gradle-retrolambda:3.6.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }
 
 }
@@ -34,5 +34,6 @@ ext {
     rxJavaVersion = "2.0.9"
     rxAndroidVersion = "2.0.1"
     daggerVersion = "2.10"
-    kotlin_version = '1.1.2-5'
+    kotlinVersion = "1.1.2-5"
+    foldingCellVersion = "1.1.0"
 }
