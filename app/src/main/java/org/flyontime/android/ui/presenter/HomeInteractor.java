@@ -1,14 +1,14 @@
 package org.flyontime.android.ui.presenter;
 
 import org.flyontime.android.model.data.FlyOnTime.DashboardModelInterface;
-import org.flyontime.android.model.data.FlyOnTime.DateModel;
 import org.flyontime.android.model.data.FlyOnTime.ItemModel;
 import org.flyontime.android.model.service.FlyOnTimeAPI;
 import org.flyontime.android.model.state.HomeViewState;
 import org.flyontime.android.scheduler.SchedulerProvider;
+import org.flyontime.android.ui.adapter.CardType;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,22 +24,32 @@ public class HomeInteractor {
     ArrayList<DashboardModelInterface> items = new ArrayList<>();
     private FlyOnTimeAPI api;
     private SchedulerProvider schedulerProvider;
-    private Observable<List<DashboardModelInterface>> stuff = Observable.fromArray(items);
+    private Observable<List<DashboardModelInterface>> stuff;
 
     @Inject
     public HomeInteractor(FlyOnTimeAPI api, SchedulerProvider schedulerProvider) {
         this.api = api;
         this.schedulerProvider = schedulerProvider;
-        items.add(new DateModel(new Date()));
-        items.add(new ItemModel("Check-in online", "check more luggage, buy seats and select preferred services", "11:30", false));
-        items.add(new ItemModel("Prepare for the trip", "checked luggage: 2 bags (max. 40 kg/bag)special item: 1 bicycle (max. 20 kg)", "12:42", true));
-        items.add(new ItemModel("Travel to the airport", "estimated daparture at 11:30travel by car (36 mins)", "13:10", true));
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
+        /*try {
+            items.add(new DateModel(simpleDateFormat.parse("24.07.2017")));
+            items.add(new ItemModel("Check-in online", "check more luggage, buy seats and select preferred services", "", false, CardType.CHECKIN, 2, 40));
+            items.add(new ItemModel("Prepare for the trip", "checked luggage: 2 bags (max. 40 kg/bag)special item: 1 bicycle (max. 20 kg)", "", true, CardType.PREPARE));
+            items.add(new DateModel(simpleDateFormat.parse("25.07.2017")));
+            items.add(new ItemModel("Travel to the airport", "estimated daparture at 11:30travel by car (36 mins)", "13:10", true, CardType.COMMUTE));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }*/
+
+        stuff = Observable.fromArray(items);
 
     }
 
     Observable<HomeViewState> loadSchools() {
         //return api.getTravelInfo() //gives us an Observable<List<SchoolsModel>>
-        return stuff
+        /*return stuff
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 // Use the data we get from the network to create a new state model with the data and emit it to the data flow
@@ -48,20 +58,34 @@ public class HomeInteractor {
                 //.startWith(new HomeViewState(true, null, null))
                 .startWith(HomeViewState.LoadingState())
                 // When there is an error, we emit a state model with an error in it
-                .onErrorReturn(HomeViewState::ErrorState);
+                .onErrorReturn(HomeViewState::ErrorState);*/
+        return loadTravelInfo();
     }
 
-    /*Observable<HomeViewState> loadTravelInfo() {
+    Observable<HomeViewState> loadTravelInfo() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm");
+        SimpleDateFormat parserFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSX");
         return api.getTravelInfo()
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 // Use the data we get from the network to create a new state model with the data and emit it to the data flow
-                .map(HomeViewState::DataLoadedState)
+                .map(data -> {
+                    ArrayList<DashboardModelInterface> myitems = new ArrayList<>();
+                    int l = CardType.values().length;
+                    for (int i = 0; i < l; i++) {
+                        String cardTitle = CardType.values()[i].toString();
+                        CardType cardType = CardType.values()[i];
+                        Integer watingTime = Integer.parseInt(data.getEstimatedSecurityCheckWaitingTimeSeconds()) / 60;
+                        Integer acc = Integer.parseInt(data.getEstimatedSecurityCheckWaitingTimeAccuracy().replace("%", ""));
+
+                        myitems.add(new ItemModel(cardTitle, "11:30", true, cardType, 2, 20, 10, 50, simpleDateFormat.format(parserFormat.parse(data.getCheckinStartTime())), simpleDateFormat.format(parserFormat.parse(data.getCheckinEndTime())), watingTime, acc));
+                    }
+                    return HomeViewState.DataLoadedState(myitems);
+                })
                 // The first state is always a loading state with no error and no data
-                //.startWith(new HomeViewState(true, null, null))
                 .startWith(HomeViewState.LoadingState())
                 // When there is an error, we emit a state model with an error in it
                 .onErrorReturn(HomeViewState::ErrorState);
-    }*/
+    }
 
 }

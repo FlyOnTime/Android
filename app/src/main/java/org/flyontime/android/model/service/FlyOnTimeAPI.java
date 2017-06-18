@@ -2,8 +2,6 @@ package org.flyontime.android.model.service;
 
 import org.flyontime.android.model.data.FlyOnTime.TravelInfo;
 
-import java.util.List;
-
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 
@@ -18,6 +16,6 @@ public interface FlyOnTimeAPI {
     String URL = "https://blooming-taiga-70606.herokuapp.com/backend/";
 
     @GET("travelInfo")
-    Observable<List<TravelInfo>> getTravelInfo();
+    Observable<TravelInfo> getTravelInfo();
 
 }

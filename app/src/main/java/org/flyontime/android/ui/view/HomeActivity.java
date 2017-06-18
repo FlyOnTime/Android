@@ -1,5 +1,6 @@
 package org.flyontime.android.ui.view;
 
+import android.Manifest;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -9,8 +10,18 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+
+import com.estimote.coresdk.recognition.packets.Nearable;
+import com.estimote.coresdk.service.BeaconManager;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 import org.flyontime.android.model.data.FlyOnTime.AppBarModel;
 import org.flyontime.android.model.data.FlyOnTime.DashboardModelInterface;
@@ -21,39 +32,76 @@ import org.flyontime.android.ui.presenter.HomePresenter;
 import org.flyontime.jw.android.R;
 import org.flyontime.jw.android.databinding.ActivityMainBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import br.com.goncalves.pugnotification.notification.PugNotification;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class HomeActivity extends AppCompatActivity implements HomeViewPresenterContract.SchoolsViewActions {
 
+    boolean notificationShown = false;
     private HomeViewPresenterContract.SchoolsPresenterActions presenter = new HomePresenter(this);
-
     private ActivityMainBinding binding;
-
-    //private BeaconManager beaconManager = new BeaconManager(getApplicationContext());
+    private ArrayList<String> knownBeacons = new ArrayList<>();
+    private BeaconManager beaconManager;
 
     @Override
     protected void onStart() {
         super.onStart();
-        //beaconManager.connect(() -> beaconManager.startNearableDiscovery());
+        //beaconManager = new BeaconManager(this);
+        beaconManager.connect(() -> beaconManager.startNearableDiscovery());
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //beaconManager.disconnect();
+        beaconManager.disconnect();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        //beaconManager.stopNearableDiscovery();
+        beaconManager.stopNearableDiscovery();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        beaconManager = new BeaconManager(this);
+
+        knownBeacons.add("d79f0436b96db232");
+        knownBeacons.add("cdf5323297a0c232");
+
+        Dexter.withActivity(this)
+                .withPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+                        beaconManager.setNearableListener(nearables -> {
+                            for (Nearable nearable : nearables) {
+                                if (knownBeacons.contains(nearable.identifier)) {
+                                    PugNotification.with(HomeActivity.this)
+                                            .load()
+                                            .title("FlyOnTime!")
+                                            .message("Thanks for being on time! Get your free coffee now at Starbucks :)")
+                                            .smallIcon(R.mipmap.ic_launcher)
+                                            .simple()
+                                            .build();
+                                    notificationShown = true;
+                                }
+                                Log.d("ACTIVITY", nearable.identifier);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */}
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {/* ... */}
+                }).check();
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
@@ -61,13 +109,6 @@ public class HomeActivity extends AppCompatActivity implements HomeViewPresenter
         setupSwiperefresh();
 
         // Should be invoked in #onCreate.
-
-        /*beaconManager.setNearableListener(nearables -> {
-            Gson gson = new Gson();
-            for(Nearable nearable : nearables) {
-                Log.d("HOMEACTIVITY", gson.toJson(nearable));
-            }
-        });*/
 
         presenter.goodRxloadSchools();
 
