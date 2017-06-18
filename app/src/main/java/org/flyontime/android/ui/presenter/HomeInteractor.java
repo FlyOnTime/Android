@@ -2,6 +2,7 @@ package org.flyontime.android.ui.presenter;
 
 import org.flyontime.android.model.data.FlyOnTime.DashboardModelInterface;
 import org.flyontime.android.model.data.FlyOnTime.ItemModel;
+import org.flyontime.android.model.data.FlyOnTime.MainRequestBody;
 import org.flyontime.android.model.service.FlyOnTimeAPI;
 import org.flyontime.android.model.state.HomeViewState;
 import org.flyontime.android.scheduler.SchedulerProvider;
@@ -65,20 +66,21 @@ public class HomeInteractor {
     Observable<HomeViewState> loadTravelInfo() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm");
         SimpleDateFormat parserFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSX");
-        return api.getTravelInfo()
+        return api.getTravelInfoPost(new MainRequestBody("KL", "3099", "2017-06-18", 1, 0))
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 // Use the data we get from the network to create a new state model with the data and emit it to the data flow
                 .map(data -> {
                     ArrayList<DashboardModelInterface> myitems = new ArrayList<>();
                     int l = CardType.values().length;
+                    String[] times = {"11:30", "12:00", "12:30", "13:05", "13:15", "13:20", "13:50"};
                     for (int i = 0; i < l; i++) {
                         String cardTitle = CardType.values()[i].toString();
                         CardType cardType = CardType.values()[i];
                         Integer watingTime = Integer.parseInt(data.getEstimatedSecurityCheckWaitingTimeSeconds()) / 60;
                         Integer acc = Integer.parseInt(data.getEstimatedSecurityCheckWaitingTimeAccuracy().replace("%", ""));
 
-                        myitems.add(new ItemModel(cardTitle, "11:30", true, cardType, 2, 20, 10, 50, simpleDateFormat.format(parserFormat.parse(data.getCheckinStartTime())), simpleDateFormat.format(parserFormat.parse(data.getCheckinEndTime())), watingTime, acc));
+                        myitems.add(new ItemModel(cardTitle, times[i], true, cardType, data.getLuggageInformation().getItemNumber(), 20, (Integer.parseInt(data.getEstimatedWaitingTimeTotalSeconds()) - Integer.parseInt(data.getEstimatedSecurityCheckWaitingTimeSeconds())) / 60, acc, simpleDateFormat.format(parserFormat.parse(data.getCheckinStartTime())), simpleDateFormat.format(parserFormat.parse(data.getCheckinEndTime())), watingTime, acc));
                     }
                     return HomeViewState.DataLoadedState(myitems);
                 })

@@ -41,6 +41,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class HomeActivity extends AppCompatActivity implements HomeViewPresenterContract.SchoolsViewActions {
 
     boolean notificationShown = false;
+    int inc = 0;
     private HomeViewPresenterContract.SchoolsPresenterActions presenter = new HomePresenter(this);
     private ActivityMainBinding binding;
     private ArrayList<String> knownBeacons = new ArrayList<>();
@@ -84,8 +85,8 @@ public class HomeActivity extends AppCompatActivity implements HomeViewPresenter
                                 if (knownBeacons.contains(nearable.identifier)) {
                                     PugNotification.with(HomeActivity.this)
                                             .load()
-                                            .title("FlyOnTime!")
-                                            .message("Thanks for being on time! Get your free coffee now at Starbucks :)")
+                                            .title("Thanks for being on time!")
+                                            .message("Get your free coffee now at Starbucks :)")
                                             .smallIcon(R.mipmap.ic_launcher)
                                             .simple()
                                             .build();
