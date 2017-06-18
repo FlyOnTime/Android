@@ -8,6 +8,10 @@
         <item name="android:typeface">sans</item>
     </style>
 
+    <style name="NoActionBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:statusBarColor">#024897</item>
+    </style>
+
     <style name="ContentImageBadgeTitle" parent="AppTheme">
         <item name="android:alpha">0.5</item>
         <item name="android:textColor">@android:color/white</item>
@@ -34,6 +38,10 @@
     <style name="TitleBadgeTitle" parent="AppTheme">
         <item name="android:textColor">@color/titleBadgeTitle</item>
         <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="AppBar">
+        <item name="android:background">#0258BD</item>
     </style>
 
     <style name="DarkGreyFont">

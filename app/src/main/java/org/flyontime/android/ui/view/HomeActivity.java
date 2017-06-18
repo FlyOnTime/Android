@@ -12,6 +12,7 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 
+import org.flyontime.android.model.data.FlyOnTime.AppBarModel;
 import org.flyontime.android.model.data.FlyOnTime.DashboardModelInterface;
 import org.flyontime.android.model.state.HomeViewState;
 import org.flyontime.android.ui.adapter.DashboardAdapter;
@@ -151,5 +152,6 @@ public class HomeActivity extends AppCompatActivity implements HomeViewPresenter
         for (DashboardModelInterface item : items) {
             ((DashboardAdapter) binding.recyclerView.getAdapter()).add(item);
         }
+        binding.setAppBarModel(new AppBarModel("Finnair Flight 913", "LSDA8H Helsinki - Berlin", "25 Jul. 11:30"));
     }
 }
