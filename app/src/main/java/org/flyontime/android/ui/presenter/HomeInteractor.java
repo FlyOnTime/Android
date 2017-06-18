@@ -79,8 +79,7 @@ public class HomeInteractor {
                         CardType cardType = CardType.values()[i];
                         Integer watingTime = Integer.parseInt(data.getEstimatedSecurityCheckWaitingTimeSeconds()) / 60;
                         Integer acc = Integer.parseInt(data.getEstimatedSecurityCheckWaitingTimeAccuracy().replace("%", ""));
-
-                        myitems.add(new ItemModel(cardTitle, times[i], true, cardType, data.getLuggageInformation().getItemNumber(), 20, (Integer.parseInt(data.getEstimatedWaitingTimeTotalSeconds()) - Integer.parseInt(data.getEstimatedSecurityCheckWaitingTimeSeconds())) / 60, acc, simpleDateFormat.format(parserFormat.parse(data.getCheckinStartTime())), simpleDateFormat.format(parserFormat.parse(data.getCheckinEndTime())), watingTime, acc));
+                        myitems.add(new ItemModel(cardTitle, times[i], true, cardType, data.getLuggageInformation().getItemNumber(), 20, (Integer.parseInt(data.getEstimatedWaitingTimeTotalSeconds()) - Integer.parseInt(data.getEstimatedSecurityCheckWaitingTimeSeconds())) / 60, acc, simpleDateFormat.format(parserFormat.parse(data.getCheckinStartTime())), simpleDateFormat.format(parserFormat.parse(data.getCheckinEndTime())), watingTime, acc, "KL3099"));
                     }
                     return HomeViewState.DataLoadedState(myitems);
                 })

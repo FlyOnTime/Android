@@ -24,7 +24,9 @@ public class ItemModel extends DashboardModelInterface {
     private int securityWaitingTime;
     private int securityPredAccuracy;
 
-    public ItemModel(String cardTitle, String timelinestopContent, boolean isActive, CardType cardType, int numOfBags, int maxWeightPerBag, int baggageDropQueuingTime, int baggageDropPredAccuracy, String baggageDropOpen, String baggageDropClose, int securityWaitingTime, int securityPredAccuracy) {
+    private String flightName;
+
+    public ItemModel(String cardTitle, String timelinestopContent, boolean isActive, CardType cardType, int numOfBags, int maxWeightPerBag, int baggageDropQueuingTime, int baggageDropPredAccuracy, String baggageDropOpen, String baggageDropClose, int securityWaitingTime, int securityPredAccuracy, String flightName) {
         this.cardTitle = cardTitle;
         this.timelinestopContent = timelinestopContent;
         this.isActive = isActive;
@@ -38,6 +40,7 @@ public class ItemModel extends DashboardModelInterface {
         this.securityWaitingTime = securityWaitingTime;
         this.securityPredAccuracy = securityPredAccuracy;
         this.cardContent = getCardContent();
+        this.flightName = flightName;
     }
 
     public ItemModel(String cardTitle, String timelinestopContent, boolean isActive, CardType cardType, int baggageDropQueuingTime, int baggageDropPredAccuracy, String baggageDropOpen, String baggageDropClose) {
@@ -77,11 +80,18 @@ public class ItemModel extends DashboardModelInterface {
                     content = "checked luggage: " + String.valueOf(this.numOfBags) + " bags (max. " + String.valueOf(this.maxWeightPerBag) + "kg/bag)";
                     break;
                 case COMMUTE:
-                    content = "Commute goes here :)";
+                    content = "27mins to Helsinki Airport by car";
                     break;
                 case BAGGAGEDROP:
                     content = "estimated queuing time: " + String.valueOf(baggageDropQueuingTime) + " mins (" + String.valueOf(baggageDropPredAccuracy) + " % accuracy) \n open " + baggageDropOpen + " - " + baggageDropClose;
                     break;
+                case SECURITY:
+                    content = "estimated wait time: " + String.valueOf(securityWaitingTime) + "mins (" + String.valueOf(securityPredAccuracy) + " % accuracy)";
+                    break;
+                case BOARD:
+                    content = "Board flight " + flightName;
+                    break;
+
             }
         } catch (Exception e) {
             e.printStackTrace();
