@@ -1,38 +1,19 @@
-package org.flyontime.android.ui.adapter;
+package org.flyontime.android.ui.animation;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
-import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.flyontime.jw.android.R;
 
 /**
- * Created by jossi on 17.06.2017.
+ * Created by jossi on 18.06.2017.
  */
 
-public class FoldingCellViewHandlers {
+public class AnimationUtils {
 
-    private int originalHeightCard = -1;
-    private boolean toggled = false;
-
-    public void toggleExpand(View view) {
-        CardView linearLayout = (CardView) view;
-        //ConstraintLayout viewToPassOn = (ConstraintLayout) linearLayout.findViewById(R.id.expandingLayout);
-        if (originalHeightCard == -1) {
-            originalHeightCard = view.getHeight();
-        }
-        //animationDown(viewToPassOn, originalHeight);//here put the name of you layout that have the options to expand.
-        if (toggled) {
-            collapseView(linearLayout, originalHeightCard);
-        } else {
-            int newheight = originalHeightCard;
-            expandView(linearLayout, newheight + 200);
-        }
-    }
-
-    public void expandView(View cardView, int height) {
+    public static void expandView(View cardView, int height) {
 
         ValueAnimator anim = ValueAnimator.ofInt(cardView.getMeasuredHeightAndState(),
                 height);
@@ -64,12 +45,10 @@ public class FoldingCellViewHandlers {
             }
         });
         anim.start();
-        toggled = true;
 
     }
 
-    public void collapseView(View cardView, int minHeight) {
-
+    public static void collapseView(View cardView, int minHeight) {
 
         ValueAnimator anim = ValueAnimator.ofInt(cardView.getMeasuredHeightAndState(),
                 minHeight);
@@ -102,7 +81,6 @@ public class FoldingCellViewHandlers {
             }
         });
         anim.start();
-        toggled = false;
     }
 
 }

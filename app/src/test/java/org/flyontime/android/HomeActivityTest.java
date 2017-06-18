@@ -40,7 +40,7 @@ public class HomeActivityTest {
 
     @Before
     public void setUp() {
-        //api = Mockito.mock(SchoolsDataAPI.class);
+        //api = Mockito.mock(FlyOnTimeAPI.class);
         schoolsPresenter = new HomePresenter(schoolsView, new TestSchedulerProvider(), api);
     }
 

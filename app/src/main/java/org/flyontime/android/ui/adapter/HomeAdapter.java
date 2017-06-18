@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Filter;
 
-import org.flyontime.android.model.data.ItemModel;
+import org.flyontime.android.model.data.FlyOnTime.ItemModel;
 import org.flyontime.jw.android.R;
 import org.flyontime.jw.android.databinding.ViewRowBinding;
 
@@ -39,7 +39,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.SchoolsViewHol
     public void onBindViewHolder(SchoolsViewHolder holder, int position) {
         holder.getBinding().setSchool(mItems.get(position));
         holder.getBinding().timeMarker.setMarker(holder.getBinding().getRoot().getContext().getDrawable(mItems.get(position).isActive() ? R.drawable.marker_outstanding : R.drawable.marker_done));
-        holder.getBinding().setHandlers(new FoldingCellViewHandlers());
+        holder.getBinding().setHandlers(new CardViewHandlers());
     }
 
     @Override

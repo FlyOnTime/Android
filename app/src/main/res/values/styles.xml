@@ -36,4 +36,48 @@
         <item name="android:textSize">12dp</item>
     </style>
 
+    <style name="DarkGreyFont">
+        <item name="android:textColor">#191919</item>
+    </style>
+
+    <style name="CardTitle" parent="DarkGreyFont">
+        <item name="fontPath">fonts/Raleway-Regular.ttf</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="CardContentText" parent="DarkGreyFont">
+        <item name="fontPath">fonts/Raleway-Thin.ttf</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="DateTextHeader" parent="DarkGreyFont">
+        <item name="fontPath">fonts/Raleway-SemiBold.ttf</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="ProfileHeader">
+        <item name="fontPath">fonts/Raleway-Regular.ttf</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="ProfileFlight">
+        <item name="fontPath">fonts/Raleway-Light.ttf</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="ProfileFlightData" parent="ProfileFlight">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="ProfileFlightDate" parent="ProfileFlight">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="CircleTime">
+        <item name="fontPath">fonts/Raleway-Bold.ttf</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>

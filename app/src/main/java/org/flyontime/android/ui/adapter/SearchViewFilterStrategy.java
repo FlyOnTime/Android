@@ -1,6 +1,6 @@
 package org.flyontime.android.ui.adapter;
 
-import org.flyontime.android.model.data.ItemModel;
+import org.flyontime.android.model.data.FlyOnTime.ItemModel;
 
 import java.util.ArrayList;
 import java.util.List;

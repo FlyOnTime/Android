@@ -75,10 +75,6 @@ dependencies {
 
     compile "com.robertlevonyan.view:MaterialChipView:1.0.1"
 
-    // FoldingCell
-    // Fuck this
-    compile "com.ramotion.foldingcell:folding-cell:$rootProject.ext.foldingCellVersion"
-
     // Estimote Beacon SDK
     compile 'com.estimote:sdk:1.0.3:release@aar'
 
@@ -94,6 +90,8 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
 
     compile 'com.github.vipulasri:timelineview:1.0.5'
+
+    compile 'uk.co.chrisjenx:calligraphy:2.3.0'
 
     // Tests
 

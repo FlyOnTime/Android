@@ -1,5 +1,6 @@
 package org.flyontime.android.ui.view;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -11,16 +12,17 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 
-import org.flyontime.android.model.data.DashboardModelInterface;
+import org.flyontime.android.model.data.FlyOnTime.DashboardModelInterface;
 import org.flyontime.android.model.state.HomeViewState;
 import org.flyontime.android.ui.adapter.DashboardAdapter;
-import org.flyontime.android.ui.adapter.HomeAdapter;
 import org.flyontime.android.ui.contract.HomeViewPresenterContract;
 import org.flyontime.android.ui.presenter.HomePresenter;
 import org.flyontime.jw.android.R;
 import org.flyontime.jw.android.databinding.ActivityMainBinding;
 
 import java.util.List;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class HomeActivity extends AppCompatActivity implements HomeViewPresenterContract.SchoolsViewActions {
 
@@ -100,6 +102,11 @@ public class HomeActivity extends AppCompatActivity implements HomeViewPresenter
     }
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();
@@ -115,7 +122,7 @@ public class HomeActivity extends AppCompatActivity implements HomeViewPresenter
 
             @Override
             public boolean onQueryTextChange(String text) {
-                ((HomeAdapter) binding.recyclerView.getAdapter()).getFilter().filter(text);
+                ((DashboardAdapter) binding.recyclerView.getAdapter()).getFilter().filter(text);
                 return true;
             }
         });

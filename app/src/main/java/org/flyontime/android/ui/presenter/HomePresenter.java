@@ -2,7 +2,7 @@ package org.flyontime.android.ui.presenter;
 
 
 import org.flyontime.android.FlyOnTimeApplication;
-import org.flyontime.android.model.service.SchoolsDataAPI;
+import org.flyontime.android.model.service.FlyOnTimeAPI;
 import org.flyontime.android.scheduler.SchedulerProvider;
 import org.flyontime.android.ui.contract.HomeViewPresenterContract;
 
@@ -17,7 +17,7 @@ public class HomePresenter implements HomeViewPresenterContract.SchoolsPresenter
     private final String TAG = this.getClass().getSimpleName();
 
     @Inject
-    SchoolsDataAPI api;
+    FlyOnTimeAPI api;
 
     @Inject
     SchedulerProvider schedulerProvider;
@@ -32,7 +32,7 @@ public class HomePresenter implements HomeViewPresenterContract.SchoolsPresenter
         FlyOnTimeApplication.getApplication().getComponent().inject(this);
     }
 
-    public HomePresenter(HomeViewPresenterContract.SchoolsViewActions view, SchedulerProvider schedulerProvider, SchoolsDataAPI api) {
+    public HomePresenter(HomeViewPresenterContract.SchoolsViewActions view, SchedulerProvider schedulerProvider, FlyOnTimeAPI api) {
         this.view = view;
         this.interactor = new HomeInteractor(api, schedulerProvider);
         this.api = api;

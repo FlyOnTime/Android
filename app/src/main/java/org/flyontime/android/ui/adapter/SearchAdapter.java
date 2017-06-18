@@ -3,7 +3,7 @@ package org.flyontime.android.ui.adapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 
-import org.flyontime.android.model.data.ItemModel;
+import org.flyontime.android.model.data.FlyOnTime.ItemModel;
 
 import java.util.List;
 

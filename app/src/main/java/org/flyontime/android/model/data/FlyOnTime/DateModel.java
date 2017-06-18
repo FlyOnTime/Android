@@ -1,5 +1,6 @@
-package org.flyontime.android.model.data;
+package org.flyontime.android.model.data.FlyOnTime;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -16,5 +17,10 @@ public class DateModel extends DashboardModelInterface {
 
     public Date getDate() {
         return date;
+    }
+
+    public String getShortenedDateString() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM hh:mm");
+        return simpleDateFormat.format(date);
     }
 }

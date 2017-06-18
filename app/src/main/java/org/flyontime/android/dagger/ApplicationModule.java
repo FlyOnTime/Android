@@ -1,6 +1,6 @@
 package org.flyontime.android.dagger;
 
-import org.flyontime.android.model.service.SchoolsDataAPI;
+import org.flyontime.android.model.service.FlyOnTimeAPI;
 import org.flyontime.android.scheduler.AppSchedulerProvider;
 import org.flyontime.android.scheduler.SchedulerProvider;
 import org.flyontime.android.ui.presenter.HomeInteractor;
@@ -22,8 +22,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApplicationModule {
 
     @Provides
-    public SchoolsDataAPI provideSchoolsAPI(Retrofit retrofit) {
-        return retrofit.create(SchoolsDataAPI.class);
+    public FlyOnTimeAPI provideSchoolsAPI(Retrofit retrofit) {
+        return retrofit.create(FlyOnTimeAPI.class);
     }
 
     @Provides
@@ -32,7 +32,7 @@ public class ApplicationModule {
         return new Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(SchoolsDataAPI.URL)
+                .baseUrl(FlyOnTimeAPI.URL)
                 .build();
     }
 

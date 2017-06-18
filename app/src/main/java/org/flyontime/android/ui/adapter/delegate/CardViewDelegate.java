@@ -1,4 +1,4 @@
-package org.flyontime.android.ui.adapter;
+package org.flyontime.android.ui.adapter.delegate;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,8 +7,9 @@ import android.view.ViewGroup;
 
 import com.hannesdorfmann.adapterdelegates3.AdapterDelegate;
 
-import org.flyontime.android.model.data.DashboardModelInterface;
-import org.flyontime.android.model.data.ItemModel;
+import org.flyontime.android.model.data.FlyOnTime.DashboardModelInterface;
+import org.flyontime.android.model.data.FlyOnTime.ItemModel;
+import org.flyontime.android.ui.adapter.CardViewHandlers;
 import org.flyontime.jw.android.R;
 import org.flyontime.jw.android.databinding.ViewRowBinding;
 
@@ -44,7 +45,7 @@ public class CardViewDelegate extends AdapterDelegate<List<DashboardModelInterfa
         CardViewHolder viewHolder = (CardViewHolder) holder;
         viewHolder.binding.setSchool((ItemModel) items.get(position));
         viewHolder.binding.timeMarker.setMarker((viewHolder.binding.getRoot().getContext().getDrawable(((ItemModel) items.get(position)).isActive() ? R.drawable.marker_outstanding : R.drawable.marker_done)));
-        viewHolder.binding.setHandlers(new FoldingCellViewHandlers());
+        viewHolder.binding.setHandlers(new CardViewHandlers());
     }
 
     private class CardViewHolder extends RecyclerView.ViewHolder {

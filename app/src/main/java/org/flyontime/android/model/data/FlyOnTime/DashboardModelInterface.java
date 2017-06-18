@@ -1,4 +1,4 @@
-package org.flyontime.android.model.data;
+package org.flyontime.android.model.data.FlyOnTime;
 
 /**
  * Created by jossi on 18.06.2017.

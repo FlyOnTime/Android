@@ -1,6 +1,6 @@
 package org.flyontime.android;
 
-import org.flyontime.android.model.service.SchoolsDataAPI;
+import org.flyontime.android.model.service.FlyOnTimeAPI;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -15,7 +15,7 @@ public class APIProvider {
     // TODO: What APIs to use?
 
     private static APIProvider instance = null;
-    private SchoolsDataAPI api = createAPIInstance();
+    private FlyOnTimeAPI api = createAPIInstance();
 
 
     private APIProvider() {
@@ -29,16 +29,16 @@ public class APIProvider {
         return instance;
     }
 
-    private SchoolsDataAPI createAPIInstance() {
+    private FlyOnTimeAPI createAPIInstance() {
         Retrofit retrofit = new Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(SchoolsDataAPI.URL)
+                .baseUrl(FlyOnTimeAPI.URL)
                 .build();
-        return retrofit.create(SchoolsDataAPI.class);
+        return retrofit.create(FlyOnTimeAPI.class);
     }
 
-    public SchoolsDataAPI getAPI() {
+    public FlyOnTimeAPI getAPI() {
         return api;
     }
 }

@@ -1,4 +1,4 @@
-package org.flyontime.android.ui.adapter;
+package org.flyontime.android.ui.adapter.delegate;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 
 import com.hannesdorfmann.adapterdelegates3.AdapterDelegate;
 
-import org.flyontime.android.model.data.DashboardModelInterface;
-import org.flyontime.android.model.data.DateModel;
+import org.flyontime.android.model.data.FlyOnTime.DashboardModelInterface;
+import org.flyontime.android.model.data.FlyOnTime.DateModel;
 import org.flyontime.jw.android.databinding.ViewRowDateBinding;
 
 import java.util.ArrayList;
