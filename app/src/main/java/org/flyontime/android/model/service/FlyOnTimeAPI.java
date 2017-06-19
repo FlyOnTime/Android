@@ -1,7 +1,7 @@
 package org.flyontime.android.model.service;
 
-import org.flyontime.android.model.data.FlyOnTime.MainRequestBody;
-import org.flyontime.android.model.data.FlyOnTime.TravelInfo;
+import org.flyontime.android.model.data.FlyOnTime.TravelInfoResponse;
+import org.flyontime.android.model.data.request.TravelInfoRequestBody;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -19,9 +19,9 @@ public interface FlyOnTimeAPI {
     String URL = "https://blooming-taiga-70606.herokuapp.com/backend/";
 
     @GET("travelInfo")
-    Observable<TravelInfo> getTravelInfo();
+    Observable<TravelInfoResponse> getTravelInfo();
 
     @POST("travelInfo")
-    Observable<TravelInfo> getTravelInfoPost(@Body MainRequestBody requestBody);
+    Observable<TravelInfoResponse> getTravelInfoPost(@Body TravelInfoRequestBody requestBody);
 
 }

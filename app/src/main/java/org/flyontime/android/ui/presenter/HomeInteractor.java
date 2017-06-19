@@ -2,7 +2,7 @@ package org.flyontime.android.ui.presenter;
 
 import org.flyontime.android.model.data.FlyOnTime.DashboardModelInterface;
 import org.flyontime.android.model.data.FlyOnTime.ItemModel;
-import org.flyontime.android.model.data.FlyOnTime.MainRequestBody;
+import org.flyontime.android.model.data.request.TravelInfoRequestBody;
 import org.flyontime.android.model.service.FlyOnTimeAPI;
 import org.flyontime.android.model.state.HomeViewState;
 import org.flyontime.android.scheduler.SchedulerProvider;
@@ -66,7 +66,7 @@ public class HomeInteractor {
     Observable<HomeViewState> loadTravelInfo() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm");
         SimpleDateFormat parserFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSX");
-        return api.getTravelInfoPost(new MainRequestBody("KL", "3099", "2017-06-18", 1, 0))
+        return api.getTravelInfoPost(new TravelInfoRequestBody("KL", "3099", "2017-06-18", 1, 0))
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
                 // Use the data we get from the network to create a new state model with the data and emit it to the data flow
