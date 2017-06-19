@@ -120,7 +120,6 @@ public class HomeActivity extends AppCompatActivity implements HomeViewPresenter
         binding.recyclerView.setLayoutManager(mLayoutManager);
 
         binding.recyclerView.setItemAnimator(new DefaultItemAnimator());
-        //binding.recyclerView.setAdapter(new HomeAdapter(this.getLayoutInflater()));
         binding.recyclerView.setAdapter(new DashboardAdapter(this.getLayoutInflater()));
     }
 

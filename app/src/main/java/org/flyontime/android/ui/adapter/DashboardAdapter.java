@@ -106,6 +106,6 @@ public class DashboardAdapter extends RecyclerView.Adapter implements SearchAdap
 
     @Override
     public List<ItemModel> getFilteredResults(String constraint) {
-        return SearchViewFilterStrategy.getFilteredResults(this.originalItemModels, constraint);
+        return SearchViewFilterStrategy.INSTANCE.getFilteredResults(this.originalItemModels, constraint);
     }
 }

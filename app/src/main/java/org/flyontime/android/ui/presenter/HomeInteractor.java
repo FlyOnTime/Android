@@ -10,7 +10,6 @@ import org.flyontime.android.ui.adapter.CardType;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -25,26 +24,11 @@ public class HomeInteractor {
     ArrayList<DashboardModelInterface> items = new ArrayList<>();
     private FlyOnTimeAPI api;
     private SchedulerProvider schedulerProvider;
-    private Observable<List<DashboardModelInterface>> stuff;
 
     @Inject
     public HomeInteractor(FlyOnTimeAPI api, SchedulerProvider schedulerProvider) {
         this.api = api;
         this.schedulerProvider = schedulerProvider;
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-
-        /*try {
-            items.add(new DateModel(simpleDateFormat.parse("24.07.2017")));
-            items.add(new ItemModel("Check-in online", "check more luggage, buy seats and select preferred services", "", false, CardType.CHECKIN, 2, 40));
-            items.add(new ItemModel("Prepare for the trip", "checked luggage: 2 bags (max. 40 kg/bag)special item: 1 bicycle (max. 20 kg)", "", true, CardType.PREPARE));
-            items.add(new DateModel(simpleDateFormat.parse("25.07.2017")));
-            items.add(new ItemModel("Travel to the airport", "estimated daparture at 11:30travel by car (36 mins)", "13:10", true, CardType.COMMUTE));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }*/
-
-        stuff = Observable.fromArray(items);
 
     }
 
@@ -64,8 +48,10 @@ public class HomeInteractor {
     }
 
     Observable<HomeViewState> loadTravelInfo() {
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm");
         SimpleDateFormat parserFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSX");
+
         return api.getTravelInfoPost(new TravelInfoRequestBody("KL", "3099", "2017-06-18", 1, 0))
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
