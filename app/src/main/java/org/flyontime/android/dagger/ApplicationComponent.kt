@@ -2,6 +2,7 @@ package org.flyontime.android.dagger
 
 import dagger.Component
 import org.flyontime.android.FlyOnTimeApplication
+import org.flyontime.android.ui.presenter.FetchEmailsPresenter
 import org.flyontime.android.ui.presenter.HomePresenter
 import javax.inject.Singleton
 
@@ -14,6 +15,8 @@ import javax.inject.Singleton
 interface ApplicationComponent {
 
     fun inject(presenter: HomePresenter)
+
+    fun inject(presenter: FetchEmailsPresenter)
 
     fun inject(application: FlyOnTimeApplication)
 

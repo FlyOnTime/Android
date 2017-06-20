@@ -9,11 +9,11 @@ import org.flyontime.android.model.state.HomeViewState
 
 interface HomeViewPresenterContract {
 
-    interface SchoolsViewActions : BaseViewPresenterContract.BaseViewActions<HomeViewState> {
+    interface HomeViewActions : BaseViewPresenterContract.BaseViewActions<HomeViewState> {
         override fun render(state: HomeViewState)
     }
 
-    interface SchoolsPresenterActions {
+    interface HomePresenterActions {
         fun goodRxloadSchools()
     }
 

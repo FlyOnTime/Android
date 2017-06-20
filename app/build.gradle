@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: "kotlin-kapt"
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
@@ -34,6 +35,10 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+
+    kapt {
+        generateStubs = true
+    }
 }
 
 
@@ -43,6 +48,7 @@ dependencies {
     // KOTLIN <3
     //compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$rootProject.ext.kotlinVersion"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$rootProject.ext.kotlinVersion"
+    kapt "com.android.databinding:compiler:2.3.3"
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -64,11 +70,14 @@ dependencies {
 
     // Dagger
     compile "com.google.dagger:dagger:$rootProject.ext.daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.ext.daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$rootProject.ext.daggerVersion"
+    kapt 'com.google.dagger:dagger-compiler:2.4'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+
 
     compile "com.google.dagger:dagger-android:$rootProject.ext.daggerVersion"
     compile "com.google.dagger:dagger-android-support:$rootProject.ext.daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.ext.daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$rootProject.ext.daggerVersion"
 
     // Apache Commons
 
@@ -88,16 +97,26 @@ dependencies {
     compile 'uk.co.chrisjenx:calligraphy:2.3.0'
     compile 'com.karumi:dexter:4.1.0'
     compile 'com.github.halysongoncalves:pugnotification:1.8.1'
+    compile 'com.google.firebase:firebase-auth:11.0.1'
+    compile 'com.google.firebase:firebase-database:11.0.1'
+    compile 'com.google.android.gms:play-services-auth:11.0.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
-    compile 'com.google.firebase:firebase-auth:10.0.1'
-    compile 'com.google.firebase:firebase-database:10.0.1'
+
+
+    compile('com.google.api-client:google-api-client-android:1.22.0') {
+        exclude group: 'org.apache.httpcomponents'
+    }
+    compile('com.google.apis:google-api-services-gmail:v1-rev67-1.22.0') {
+        exclude group: 'org.apache.httpcomponents'
+    }
 
     // Tests
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    //a
+    //and
     testCompile 'org.mockito:mockito-core:2.7.22'
     testCompile 'junit:junit:4.12'
     testCompile 'com.github.fabioCollini:DaggerMock:0.6.4'

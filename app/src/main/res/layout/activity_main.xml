@@ -92,6 +92,7 @@
                     app:layout_constraintLeft_toRightOf="@+id/profile_image"
                     app:layout_constraintRight_toRightOf="parent"
                     tools:text="25. Jul, 11:30" />
+
             </android.support.constraint.ConstraintLayout>
 
             <android.support.v7.widget.RecyclerView

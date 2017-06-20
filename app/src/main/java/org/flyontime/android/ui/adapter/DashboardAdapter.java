@@ -33,6 +33,7 @@ public class DashboardAdapter extends RecyclerView.Adapter implements SearchAdap
     public DashboardAdapter(LayoutInflater layoutInflater) {
         delegatesManager = new AdapterDelegatesManager<>();
         delegatesManager.addDelegate(new CardViewDelegate(layoutInflater));
+        delegatesManager.addDelegate(new CardViewDelegate(layoutInflater));
         delegatesManager.addDelegate(new DateViewDelegate(layoutInflater));
     }
 

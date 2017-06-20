@@ -2,6 +2,7 @@ package org.flyontime.android.ui.view;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -38,11 +39,11 @@ import java.util.List;
 import br.com.goncalves.pugnotification.notification.PugNotification;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class HomeActivity extends AppCompatActivity implements HomeViewPresenterContract.SchoolsViewActions {
+public class HomeActivity extends AppCompatActivity implements HomeViewPresenterContract.HomeViewActions {
 
     boolean notificationShown = false;
     int inc = 0;
-    private HomeViewPresenterContract.SchoolsPresenterActions presenter = new HomePresenter(this);
+    private HomeViewPresenterContract.HomePresenterActions presenter = new HomePresenter(this);
     private ActivityMainBinding binding;
     private ArrayList<String> knownBeacons = new ArrayList<>();
     private BeaconManager beaconManager;
@@ -72,9 +73,21 @@ public class HomeActivity extends AppCompatActivity implements HomeViewPresenter
 
         beaconManager = new BeaconManager(this);
 
-        knownBeacons.add("d79f0436b96db232");
-        knownBeacons.add("cdf5323297a0c232");
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
+        setupRecyclerView();
+        setupSwiperefresh();
+
+        binding.profileImage.setOnClickListener(v -> {
+            Intent intent = new Intent(this, FetchEmailsActivity.class);
+            startActivity(intent);
+        });
+
+        presenter.goodRxloadSchools();
+
+    }
+
+    void getPermissions() {
         Dexter.withActivity(this)
                 .withPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
                 .withListener(new PermissionListener() {
@@ -103,16 +116,6 @@ public class HomeActivity extends AppCompatActivity implements HomeViewPresenter
                     @Override
                     public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {/* ... */}
                 }).check();
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
-        setupRecyclerView();
-        setupSwiperefresh();
-
-        // Should be invoked in #onCreate.
-
-        presenter.goodRxloadSchools();
-
     }
 
     void setupRecyclerView() {
