@@ -9,9 +9,13 @@ buildscript {
     repositories {
         jcenter()
         mavenCentral()
+        // yay
+        maven {
+            url 'https://maven.google.com'
+        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.0.0-alpha1'
         classpath 'me.tatarka:gradle-retrolambda:3.6.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath 'com.google.gms:google-services:3.0.0'
